@@ -47,6 +47,7 @@
     <div class="tab-nav">
       <button class="tab-button" onclick="location.href='<c:url value="/mypage"/>'">정보</button>
       <button class="tab-button" onclick="location.href='<c:url value="/mypage/edit"/>'">내정보 수정</button>
+	  <button class="tab-button" onclick="location.href='<c:url value="/wishlist"/>'">찜 목록</button>
       <button class="tab-button" onclick="location.href='<c:url value="/MyPage/purchaseList"/>'">구매내역</button>
       <button class="tab-button active" onclick="location.href='<c:url value="/mypage/withdraw"/>'">회원탈퇴</button>
     </div>

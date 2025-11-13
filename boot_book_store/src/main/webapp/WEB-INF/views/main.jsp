@@ -47,6 +47,23 @@
 						<a href="<c:url value='/logout'/>">로그아웃</a>
 						<span style="color: #666; font-weight: 700;">
 							${sessionScope.loginDisplayName}님 </span>
+						<!-- 🔥 일반 사용자 & 관리자 공통 → 드롭다운 버튼 -->
+					    <div class="admin-dropdown">
+					        <span class="admin-text">
+					            고객지원
+					            <span class="arrow">▼</span>
+					        </span>
+
+					        <div class="admin-menu">
+					            <!-- 모든 사용자에게 보임 -->
+					            <a href="<c:url value='/inquiry'/>">1:1 문의</a>
+					            <a href="<c:url value='/adminMain'/>">관리자 모드</a>
+
+					            <!-- 🔥 관리자에게만 보임 -->
+					            <c:if test="${sessionScope.userRole eq 'ADMIN'}">
+					            </c:if>
+					        </div>
+					    </div>
 					</c:otherwise>
 				</c:choose>
 			</div>

@@ -33,6 +33,7 @@ import com.boot.dto.BookBuyDTO;
 import com.boot.dto.CartDTO;
 import com.boot.dto.UserDTO;
 import com.boot.service.UserServicelmpl;
+import com.boot.service.WishlistService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -47,6 +48,8 @@ public class ProjectController {
     private BookBuyDAO bookBuyDAO;
     @Autowired
     private CartDAO cartDAO;
+    @Autowired
+    private WishlistService wishlistService;
 
     // ------------------ 메인 ------------------
 	@GetMapping("/main")
@@ -199,6 +202,27 @@ public class ProjectController {
 		param.put("user_id", loginId);
 		userService.updateUser(param);
 		return "redirect:/mypage";
+	}
+
+	// ------------------ 찜 목록 ------------------
+	@RequestMapping(value = "/wishlist", method = RequestMethod.GET)
+	public String wishlist(Model model, HttpSession session) {
+		String loginId = (String) session.getAttribute("loginId");
+		if (loginId == null)
+			return "redirect:/login";
+
+		// ✅ 이름으로 세션 표시 업데이트
+		Map<String, Object> userInfo = userService.getUser(loginId);
+		if (userInfo != null) {
+			String name = (String) userInfo.get("user_name");
+			session.setAttribute("loginDisplayName", name);
+		}
+
+		// 찜 목록 조회
+		List<com.boot.dto.WishlistDTO> wishlist = wishlistService.getWishlistByUserId(loginId);
+		model.addAttribute("wishlist", wishlist);
+
+		return "MyPage/wishlist";
 	}
 
 	// ------------------ 회원탈퇴 ------------------

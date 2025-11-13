@@ -418,6 +418,9 @@
 	<!-- 페이지 전용 JS -->
 	<script src="/js/main.js"></script>
 
+	<!-- 고객지원 전용 JS-->
+	<script src="/js/dropdown.js"></script>
+
 	<!-- ✅ 회원 탈퇴 완료 알림 -->
 	<script>
 	  document.addEventListener("DOMContentLoaded", function() {

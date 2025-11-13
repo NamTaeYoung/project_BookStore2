@@ -57,6 +57,12 @@ public class ProjectController {
 		return "main";
 	}
 
+	// ------------------ 관리자 메인 ------------------
+	@GetMapping("/adminMain")
+	public String adminMain(HttpSession session) {
+		return "admin/adminMain";
+	}
+
 	// ------------------ 회원가입 ------------------
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String register() {

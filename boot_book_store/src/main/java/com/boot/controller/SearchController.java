@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.boot.dao.BookBuyDAO;
 import com.boot.dao.SearchDAO;
+import com.boot.dao.UserReviewDAO;
+import com.boot.dto.BookBuyDTO;
 import com.boot.dto.SearchDTO;
+import com.boot.dto.UserReviewDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -61,11 +67,33 @@ public class SearchController {
     }
 
     @GetMapping("/SearchDetail")
-    public String detail(@RequestParam("book_id") int book_id, Model model) {
+    public String detail(@RequestParam("book_id") int book_id, Model model, HttpSession session) {
         SearchDAO dao = sqlSession.getMapper(SearchDAO.class);
         SearchDTO book = dao.getBookById(book_id);
         if (book == null) return "redirect:/Search";
         model.addAttribute("book", book);
+
+        // 리뷰 조회
+        UserReviewDAO reviewDAO = sqlSession.getMapper(UserReviewDAO.class);
+        List<UserReviewDTO> reviews = reviewDAO.findReviewsByBookId((long)book_id);
+        model.addAttribute("reviews", reviews);
+
+        // 로그인한 사용자의 구매 여부 확인
+        String userId = (String) session.getAttribute("loginId");
+        boolean hasPurchased = false;
+        boolean hasReviewed = false;
+        if (userId != null) {
+            BookBuyDAO bookBuyDAO = sqlSession.getMapper(BookBuyDAO.class);
+            List<BookBuyDTO> purchaseList = bookBuyDAO.selectPurchaseListByUserId(userId);
+            hasPurchased = purchaseList.stream()
+                                        .anyMatch(p -> p.getBook_id() == book_id);
+            // ▼ 리뷰 작성 여부 확인 (여기 추가)
+            int reviewCount = reviewDAO.countUserReviewByBook(userId, (long)book_id);
+            hasReviewed = reviewCount > 0;
+        }
+        model.addAttribute("hasPurchased", hasPurchased);
+        model.addAttribute("hasReviewed", hasReviewed); // ★ 추가
+        
         return "Book/SearchDetail"; 
     }
 }

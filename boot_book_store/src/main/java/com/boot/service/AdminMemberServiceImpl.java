@@ -32,4 +32,13 @@ public class AdminMemberServiceImpl implements AdminMemberService {
     public int deleteMember(String userId) {
         return adminMemberMapper.deleteUser(userId);   // ⭐ XML 의 id와 정확히 일치!
     }
+    @Override
+    public int updateRole(Map<String, Object> param) {
+        return adminMemberMapper.updateRole(param);
+    }
+    @Override
+    public List<Map<String, Object>> getAdmins() {
+        return adminMemberMapper.selectAdmins();
+    }
+
 }

@@ -109,15 +109,45 @@
   </div>
   <script>
 	// 공통 페이지 로더
-	function loadPage(pageUrl) {
-
-	  fetch(pageUrl)
+	function loadPage(url) {
+		fetch(url)
 	    .then(res => res.text())
 	    .then(html => {
-	      document.getElementById("content-area").innerHTML = html;
+	      const area = document.getElementById("content-area");
+	      area.innerHTML = html;
 
-	      // ❗ 페이지 로드 후 필요한 후처리 실행
-	      afterLoad(pageUrl);
+	      // 🚀 삽입된 JSP 내부 script 실행
+	      const scripts = area.querySelectorAll("script");
+	      scripts.forEach(oldScript => {
+	        const newScript = document.createElement("script");
+
+	        if (oldScript.src) {
+	          newScript.src = oldScript.src;
+	        } else {
+	          newScript.textContent = oldScript.textContent;
+	        }
+
+	        oldScript.replaceWith(newScript);
+	      });
+
+	      // 🚀 페이지마다 초기화 함수 실행
+	      if (url.includes("/admin/notice/write")) {
+	        if (typeof initNoticeWrite === "function") {
+	          initNoticeWrite();
+	        }
+	      }
+
+	      if (url.includes("/admin/notice/edit")) {
+	        if (typeof initNoticeEdit === "function") {
+	          initNoticeEdit();
+	        }
+	      }
+
+	      if (url.includes("/admin/notice/detail")) {
+	        if (typeof initNoticeDetail === "function") {
+	          initNoticeDetail();
+	        }
+	      }
 	    })
 	    .catch(err => {
 	      document.getElementById("content-area").innerHTML =
@@ -234,3 +264,4 @@
   </script>
 </body>
 </html>
+

@@ -8,4 +8,7 @@ public interface AdminMemberService {
     Map<String, Object> getMemberById(String userId);
     int updateMember(Map<String, Object> param);
     int deleteMember(String userId);
+    int updateRole(Map<String, Object> param);
+    List<Map<String, Object>> getAdmins();
+
 }

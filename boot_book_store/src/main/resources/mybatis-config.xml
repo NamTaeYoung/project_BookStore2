@@ -9,8 +9,9 @@
 	<mappers>
 		<mapper resource="mybatis/mappers/BookMapper.xml"/>
 		<mapper resource="mybatis/mappers/BookMapper2.xml"/>
-		<mapper resource="mybatis/mappers/BuyMapper.xml"/>
 		<mapper resource="mybatis/mappers/CartMapper.xml"/>
+		<mapper resource="mybatis/mappers/OrderMapper.xml"/>
+		<mapper resource="mybatis/mappers/OrderDetailMapper.xml"/>
 		<mapper resource="mybatis/mappers/SearchDAO.xml"/>
 		<mapper resource="mybatis/mappers/User.xml"/>
 		<mapper resource="mybatis/mappers/UserReviewMapper.xml"/>

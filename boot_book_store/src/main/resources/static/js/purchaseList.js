@@ -1,11 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-
   initializePagination();
   setupSearchAndFilter();
+  addRowClickListeners();
 });
 
 function initializePagination() {
-
   const pagination = document.getElementById('pagination');
   const rows = document.querySelectorAll('#purchaseTableBody tr');
   const pageData = {};
@@ -17,7 +16,7 @@ function initializePagination() {
   });
 
   const totalPages = Math.max(Object.keys(pageData).length, 1);
-  console.log('totalPages:', totalPages);
+
   let html = `<button id="prevBtn" class="pagination-btn" onclick="changePage(-1)" disabled>&lt;</button>`;
 
   for (let i = 1; i <= totalPages; i++) {
@@ -26,6 +25,7 @@ function initializePagination() {
 
   html += `<button id="nextBtn" class="pagination-btn" onclick="changePage(1)">&gt;</button>`;
   pagination.innerHTML = html;
+
   showPage(1);
 }
 
@@ -73,14 +73,13 @@ function setupSearchAndFilter() {
   }
 }
 
-
 function performSearch() {
   const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
   filterRows(searchTerm);
 }
 
 function filterRows(searchTerm = '') {
-  const selectedStatus = document.getElementById('statusFilter').value;
+  const selectedStatus = document.getElementById('statusFilter') ? document.getElementById('statusFilter').value : '';
   const currentPage = getCurrentPage();
   const rows = document.querySelectorAll('#purchaseTableBody tr');
 
@@ -90,13 +89,28 @@ function filterRows(searchTerm = '') {
       return;
     }
 
-    const orderNo = row.cells[0].textContent.toLowerCase();
-    const bookTitle = row.cells[2].textContent.toLowerCase();
+    const bookTitle = row.cells[1].textContent.toLowerCase();
+
+    // 주문번호 컬럼이 없으면 orderNo 관련 부분 제거 또는 구현 필요
+    // const orderNo = row.cells[0].textContent.toLowerCase();
+    
+    const matchesSearch = searchTerm === '' || bookTitle.includes(searchTerm);
     const statusSpan = row.querySelector('.status-badge');
-    const matchesSearch = searchTerm === '' || orderNo.includes(searchTerm) || bookTitle.includes(searchTerm);
     const matchesStatus = selectedStatus === '' || (statusSpan && statusSpan.classList.contains(`status-${selectedStatus}`));
 
     row.style.display = matchesSearch && matchesStatus ? '' : 'none';
+  });
+}
+
+function addRowClickListeners() {
+  const rows = document.querySelectorAll('.clickable-row');
+  rows.forEach(row => {
+    row.addEventListener('click', () => {
+      const orderId = row.getAttribute('data-orderid');
+      if(orderId) {
+        window.location.href = `${window.location.origin}/purchaseDetail?orderId=${orderId}`;
+      }
+    });
   });
 }
 

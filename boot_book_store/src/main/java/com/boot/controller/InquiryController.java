@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.boot.dto.InquiryDTO;
@@ -131,7 +132,6 @@ public class InquiryController {
     // 관리자용: 전체 문의 목록
     @GetMapping("/admin/list")
     public String adminInquiryList(HttpSession session, Model model) {
-        // TODO: 관리자 권한 체크 추가 필요
         String loginId = (String) session.getAttribute("loginId");
         if (loginId == null) {
             return "redirect:/login";
@@ -140,7 +140,7 @@ public class InquiryController {
         List<InquiryDTO> inquiryList = inquiryService.getAllInquiries();
         model.addAttribute("inquiryList", inquiryList);
         
-        return "admin/adminlist";  // ✅ admin 폴더로 변경
+        return "admin/adminlist";
     }
 
     // 관리자용: 문의 상세 및 답변 작성
@@ -152,35 +152,62 @@ public class InquiryController {
         InquiryDTO inquiry = inquiryService.getInquiryById(inquiryId);
         model.addAttribute("inquiry", inquiry);
         
-        return "admin/admindetail";  // ✅ admin 폴더로 변경
+        return "admin/admindetail";
     }
 
-    // 관리자용: 답변 작성 처리
+    // 관리자용: 답변 작성/수정 처리
     @PostMapping("/admin/reply")
+    @ResponseBody
     public String adminReply(
             @RequestParam("inquiry_id") int inquiryId,
             @RequestParam("reply_content") String replyContent,
-            HttpSession session,
-            RedirectAttributes redirectAttributes) {
+            HttpSession session) {
         
         String adminId = (String) session.getAttribute("loginId");
         if (adminId == null) {
-            return "redirect:/login";
+            System.out.println("=== 로그인 안됨 ===");
+            return "FAIL";
         }
 
+        System.out.println("=== 답변 처리 시작 ===");
+        System.out.println("inquiry_id: " + inquiryId);
+        System.out.println("reply_content: " + replyContent);
+        System.out.println("admin_id: " + adminId);
+
+        // inquiry_id로 기존 답변 조회
+        InquiryReplyDTO existingReply = inquiryService.getReplyByInquiryId(inquiryId);
+        System.out.println("existingReply: " + existingReply);
+        if (existingReply != null) {
+            System.out.println("existingReply.reply_id: " + existingReply.getReply_id());
+        }
+        
         InquiryReplyDTO reply = new InquiryReplyDTO();
         reply.setInquiry_id(inquiryId);
         reply.setAdmin_id(adminId);
         reply.setReply_content(replyContent);
 
-        int result = inquiryService.createReply(reply);
+        int result = 0;
+        
+        if (existingReply != null && existingReply.getReply_id() > 0) {
+            // 답변이 있으면 reply_id로 수정
+            reply.setReply_id(existingReply.getReply_id());
+            System.out.println("=== 답변 수정 ===");
+            System.out.println("reply_id: " + reply.getReply_id());
+            result = inquiryService.updateReply(reply);
+            System.out.println("답변 수정 결과: " + result);
+        } else {
+            // 답변이 없으면 등록
+            System.out.println("=== 답변 등록 ===");
+            result = inquiryService.createReply(reply);
+            System.out.println("답변 등록 결과: " + result);
+        }
         
         if (result > 0) {
-            redirectAttributes.addFlashAttribute("msg", "답변이 등록되었습니다.");
+            System.out.println("=== 성공 ===");
+            return "SUCCESS";
         } else {
-            redirectAttributes.addFlashAttribute("msg", "답변 등록에 실패했습니다.");
+            System.out.println("=== 실패 ===");
+            return "FAIL";
         }
-
-        return "redirect:/inquiry/admin/detail?inquiry_id=" + inquiryId;
     }
 }

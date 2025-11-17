@@ -26,12 +26,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
-import com.boot.dao.BookBuyDAO;
 import com.boot.dao.BookDAO;
 import com.boot.dao.CartDAO;
-import com.boot.dto.BookBuyDTO;
+import com.boot.dao.OrderDetailDAO;
 import com.boot.dto.CartDTO;
 import com.boot.dto.UserDTO;
+import com.boot.service.OrderDetailService;
+import com.boot.service.OrderService;
 import com.boot.service.UserServicelmpl;
 import com.boot.service.WishlistService;
 
@@ -44,8 +45,6 @@ public class ProjectController {
 	private UserServicelmpl userService;
 	@Autowired
 	private BookDAO bookDAO;
-    @Autowired
-    private BookBuyDAO bookBuyDAO;
     @Autowired
     private CartDAO cartDAO;
     @Autowired

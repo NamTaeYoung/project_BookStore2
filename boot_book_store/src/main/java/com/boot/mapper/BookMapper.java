@@ -17,6 +17,20 @@ public interface BookMapper {
     // 전체 장르 목록
     List<GenreDTO> getAllGenres();
 
-    // 특정 장르의 도서 목록
-    List<BookDTO> getBooksByGenre(@Param("genre_id") int genre_id);
+    <!-- 특정 장르별 도서 목록 -->
+	<select id="getBooksByGenre" parameterType="int"
+		resultType="com.boot.dto.BookDTO">
+		SELECT *
+		FROM book
+		WHERE genre_id = #{genre_id}
+		ORDER BY book_id
+	</select>
+	<!-- 페이징 목록 -->
+
+
+
+<!-- 전체 개수 -->
+<select id="countBooks" resultType="int">
+    SELECT COUNT(*) FROM Book
+</select>
 }

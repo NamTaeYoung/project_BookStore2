@@ -42,23 +42,24 @@ CREATE SEQUENCE BOOK_BOARD_ATTACH_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
 
 -- FK (게시글 삭제 시 첨부도 같이 삭제)
 ALTER TABLE book_board_attach
-  ADD CONSTRAINT fk_pba_board
+  ADD CONSTRAINT book_fk_pba_board
   FOREIGN KEY (board_no)
   REFERENCES book_board(board_no)
   ON DELETE CASCADE;
 
 -- is_image 값 제한
 ALTER TABLE book_board_attach
-  ADD CONSTRAINT chk_pba_is_image CHECK (is_image IN ('Y', 'N'));
+  ADD CONSTRAINT book_chk_pba_is_image CHECK (is_image IN ('Y', 'N'));
 
 -- 목록/대표 조회 성능 인덱스
-CREATE INDEX idx_pba_board_primary
+CREATE INDEX book_idx_pba_board_primary
   ON book_board_attach(board_no, sort_order, attach_no);
 
 -- (옵션) 글마다 대표(sort_order=0)는 1개만 허용
-CREATE UNIQUE INDEX uidx_pba_one_primary
+CREATE UNIQUE INDEX book_uidx_pba_one_primary
   ON book_board_attach (board_no, DECODE(sort_order, 0, 0, NULL));
   
+
 
 
 COMMIT;

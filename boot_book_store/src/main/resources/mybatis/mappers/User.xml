@@ -11,8 +11,8 @@
   </select>
     
   <insert id="register" parameterType="hashmap">
-        insert into users(user_id, user_pw, user_email, user_phone_num, user_post_num, user_address, user_detail_address, user_name, user_nickname) 
-        values(#{user_id},#{user_pw},#{user_email},#{user_phone_num},#{user_post_num},#{user_address},#{user_detail_address},#{user_name},#{user_nickname})
+        insert into users(user_id, user_pw, user_email, user_phone_num, user_post_num, user_address, user_detail_address, user_name, user_nickname,user_role) 
+        values(#{user_id},#{user_pw},#{user_email},#{user_phone_num},#{user_post_num},#{user_address},#{user_detail_address},#{user_name},#{user_nickname},'USER')
   </insert>
 	
   <!-- 	아이디 중복 체크 -->
@@ -22,7 +22,7 @@
     
   <!--     이메일 중복 체크 -->
   <select id="checkEmail" parameterType="String" resultType="int">
-    	select count(*) from users where user_email = #{user_email}
+    	select count(*) from users where user_email = #{user_email} AND user_role != 'INACTIVE'
   </select>
     
   <select id="findIdByEmail" parameterType="String" resultType="String">
@@ -74,7 +74,10 @@
     
   <!-- 이메일로 기존 회원 조회 -->
   <select id="getUserByEmail" parameterType="string" resultType="com.boot.dto.UserDTO">
-	    SELECT * FROM users WHERE user_email = #{user_email}
+	    SELECT *
+		FROM users
+		WHERE user_email = #{user_email}
+		  AND user_role != 'INACTIVE'
   </select>
 	
   <!-- 소셜 신규 회원 등록 -->
@@ -92,7 +95,8 @@
             user_post_num, 
             user_address, 
             user_detail_address,
-            reg_date
+            reg_date,
+            user_role
         ) VALUES (
             #{user_id},
             'SOCIAL_LOGIN',
@@ -106,7 +110,8 @@
             '47354',
             '부산시',
             '범내골',
-            SYSDATE
+            SYSDATE,
+            'USER'
         )
   </insert>
 
@@ -141,17 +146,69 @@
      WHERE user_id = #{user_id, jdbcType=VARCHAR}
   </update>
 
-  <delete id="withdraw" parameterType="hashmap">
-	  DELETE FROM users
-	  WHERE user_id = #{user_id, jdbcType=VARCHAR}
-	    AND user_pw = #{user_pw, jdbcType=VARCHAR}
-  </delete>
-	
-  <!-- 소셜 로그인 회원 탈퇴 -->
-  <delete id="withdrawSocial" parameterType="map">
-	  DELETE FROM users
-	  WHERE user_id = #{user_id, jdbcType=VARCHAR}
-	    AND login_type = #{login_type, jdbcType=VARCHAR}
-  </delete>
+  <!-- 일반 로그인 사용자 탈퇴(논리삭제) -->
+  <update id="withdraw" parameterType="hashmap">
+    UPDATE users
+    SET 
+        user_role = 'INACTIVE',
+        user_pw = 'DELETED',
+        user_email = 'deleted_' || user_id || '@deleted.com',
+        user_email_chk = 'N',
+        user_phone_num = '000-0000-0000',
+        user_post_num = '',
+        user_address = '',
+        user_detail_address = '',
+        user_name = '탈퇴회원',
+        user_nickname = '탈퇴회원'
+    WHERE user_id = #{user_id}
+      AND user_pw = #{user_pw}
+  </update>
+
+
+  <!-- 소셜 로그인 탈퇴(논리삭제) -->
+  <update id="withdrawSocial" parameterType="map">
+    UPDATE users
+    SET 
+        user_role = 'INACTIVE',
+        user_pw = 'DELETED',
+        user_email = 'deleted_' || user_id || '@deleted.com',
+        user_email_chk = 'N',
+        user_phone_num = '000-0000-0000',
+        user_post_num = '',
+        user_address = '',
+        user_detail_address = '',
+        user_name = '탈퇴회원',
+        user_nickname = '탈퇴회원'
+    WHERE user_id = #{user_id}
+      AND login_type = #{login_type}
+  </update>
+
+  <!-- 소셜 로그인 시 기존 탈퇴 사용자 조회 -->
+  <select id="getInactiveUser" parameterType="string" resultType="com.boot.dto.UserDTO">
+    SELECT *
+    FROM users
+    WHERE user_id = #{user_id}
+      AND user_role = 'INACTIVE'
+  </select>
+
+  <!-- 소셜 사용자 재활성화 -->
+  <update id="reactivateSocialUser" parameterType="map">
+    UPDATE users
+    SET user_role           = 'USER',
+        user_name           = #{user_name},
+        user_nickname       = #{user_nickname},
+        user_email          = #{user_email},
+        user_email_chk      = 'Y',
+        user_phone_num      = '000-0000-0000',
+        reg_date            = SYSDATE,
+        login_type          = #{login_type},
+        social_id           = #{social_id},
+        user_pw				= 'SOCIAL_LOGIN',
+        user_post_num		= '47354',
+        user_address 		= '부산시',
+        user_detail_address = '범내골'
+    WHERE user_id = #{user_id}
+      AND user_role = 'INACTIVE'
+  </update>
 
 </mapper>

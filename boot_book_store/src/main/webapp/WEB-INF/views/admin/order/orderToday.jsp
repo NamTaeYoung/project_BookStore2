@@ -16,20 +16,29 @@
             padding: 0;
         }
 
+        .title-header {
+            width: 85%;
+            margin: 60px auto 26px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .title {
             font-size: 32px;
             font-weight: 700;
-            margin: 60px 0 26px 8%;
             color: #3e2c1c;
+            margin: 0;
         }
 
         .table-container {
             width: 85%;
-            margin: 0 auto 40px auto;
+            margin: 0 auto;
             background: #ffffff;
             border-radius: 16px;
-            padding: 10px 0 20px 0;
+            padding: 0;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
         }
 
         table {
@@ -45,27 +54,56 @@
         }
 
         th {
-            padding: 14px 12px;
+            padding: 16px 12px;
             text-align: center;
             font-weight: 600;
+            border: none;
+        }
+
+        tbody {
+            background: #ffffff;
         }
 
         td {
-            padding: 16px 12px;
+            padding: 18px 12px;
             text-align: center;
+            border: none;
             border-bottom: 1px solid #ece4d9;
             color: #4b3b2a;
+            background: #ffffff;
+        }
+
+        tbody tr {
+            background: #ffffff;
+            transition: background-color 0.2s;
         }
 
         tbody tr:hover {
             background: #f8f5f1;
         }
 
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+
         .order-link {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #f8f5f1;
+            border: 2px solid #6b4f34;
+            border-radius: 8px;
             color: #6b4f34;
             font-weight: 600;
-            text-decoration: underline;
+            text-decoration: none;
             cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .order-link:hover {
+            background: #6b4f34;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(107, 79, 52, 0.3);
         }
 
         .summary-bar {
@@ -73,105 +111,123 @@
             margin: 0 auto 10px auto;
             display: flex;
             justify-content: space-between;
+            gap: 16px;
             font-size: 14px;
             color: #5d4732;
         }
-		/* 검색 영역 */
-	    .board-search {
-	      display: flex;
-	      gap: 12px;
-	      margin-top: 30px;
-	      justify-content: center;
-	    }
-	    .search-input {
-	      padding: 12px 20px;
-	      border: 2px solid #eee;
-	      border-radius: 12px;
-	      font-size: 14px;
-	      outline: none;
-	      transition: all .3s ease;
-	      width: 300px;
-	    }
-	    .search-input:focus {
-	      border-color: var(--brand);
-	      box-shadow: 0 0 0 3px rgba(44,95,141,.1);
-	    }
-	    .search-btn {
-	      padding: 12px 24px;
-	      background: var(--brand);
-	      color: #fff;
-	      border: none;
-	      border-radius: 12px;
-	      font-size: 14px;
-	      font-weight: 600;
-	      cursor: pointer;
-	      transition: all .3s ease;
-	    }
-	    .search-btn:hover {
-	      background: var(--brand-dark);
-	      transform: translateY(-2px);
-	    }
+        .search-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
 
-	    /* 페이지네이션 */
-	    .pagination {
-	      display: flex;
-	      justify-content: center;
-	      align-items: center;
-	      gap: 8px;
-	      margin-top: 40px;
-	    }
-	    .pagination a,
-	    .pagination span {
-	      display: inline-flex;
-	      align-items: center;
-	      justify-content: center;
-	      width: 40px;
-	      height: 40px;
-	      border-radius: 8px;
-	      text-decoration: none;
-	      color: var(--text);
-	      font-size: 14px;
-	      transition: all .2s ease;
-	     
-	     background-color: #f8f9fa;
-	     border: 1px solid #ddd;
-	     
-	    }
-	    .pagination a:hover {
-	      background: var(--section-bg);
-	      color: var(--brand);
-	    }
-	    .pagination .active {
-	      background: var(--brand);
-	      color: #fff;
-	    }
-	   
-	   .pagination a {
-	     cursor: pointer;
-	   }
+        .search-form {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-	   .pagination span {
-	     cursor: default;
-	   }
+        .search-form select,
+        .search-form input {
+            padding: 12px 14px;
+            border: 1px solid #d9cfc4;
+            border-radius: 10px;
+            background: #faf7f3;
+            font-size: 14px;
+            color: #4b3b2a;
+            outline: none;
+        }
 
-	   .pagination a:hover {
-	     background: #D3D3D3;
-		 color: #000;
-	   }
+        .search-form input:focus,
+        .search-form select:focus {
+            border-color: #8a6b52;
+            background: #fff;
+            box-shadow: 0 0 0 2px rgba(138, 107, 82, 0.2);
+        }
+
+        .btn-search {
+            padding: 12px 22px;
+            background: #795438;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-search:hover {
+            background: #8a6141;
+        }
+
+        .pagination {
+            width: 85%;
+            margin: 30px auto 60px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .pagination a {
+            min-width: 34px;
+            padding: 8px 12px;
+            text-align: center;
+            border-radius: 8px;
+            border: 1px solid #d9cfc4;
+            color: #4b3b2a;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .pagination a:hover {
+            background: #f8f5f1;
+        }
+
+        .pagination a.active {
+            background: #6b4f34;
+            color: #fff;
+            border-color: #6b4f34;
+        }
+
+        .btn-detail {
+            padding: 8px 16px;
+            background: #795438;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-detail:hover {
+            background: #8a6141;
+        }
     </style>
 </head>
 
 <body>
 
-	<div class="title">오늘 주문 내역</div>
-
-	<div class="summary-bar">
-	    <div>오늘 주문 건수 : <strong>${total}</strong> 건</div>
-	    <div>
-	        <a href="javascript:void(0)" onclick="loadPage('/admin/order/list')">
-	            전체 주문내역 보기 ▶
-	        </a>
-	    </div>
+	<div class="title-header">
+		<div class="title">오늘 주문 내역</div>
+		<div class="search-container">
+			<div style="font-size: 14px; color: #5d4732; margin-right: 16px;">
+				오늘 주문 건수 : <strong>${total}</strong> 건
+			</div>
+			<div>
+				<a href="javascript:void(0)" onclick="loadPage('/admin/order/list')" 
+				   style="color: #6b4f34; text-decoration: none; font-weight: 600; padding: 8px 12px; border-radius: 8px; transition: 0.2s;">
+					전체 주문내역 보기 ▶
+				</a>
+			</div>
+		</div>
 	</div>
 
 	<div class="table-container">
@@ -215,18 +271,21 @@
 	        </tbody>
 	    </table>
 	</div>
-	<!-- 검색 영역 -->
-      <div class="board-search">
-        <form method="get" id="searchForm">
-          <select name="type" style="padding: 12px; border: 2px solid #eee; border-radius: 12px; font-size: 14px; margin-right: 8px;">
-			<option value="uid"   ${type == 'uid' ? 'selected' : ''}>회원 ID</option>
-			<option value="uname" ${type == 'uname' ? 'selected' : ''}>회원명</option>
-			<option value="email" ${type == 'email' ? 'selected' : ''}>이메일</option>
-          </select>
-          <input type="text" name="keyword" class="search-input" placeholder="검색어를 입력하세요" value="${param.keyword}">
-          <button type="submit" class="search-btn">검색</button>
-        </form>
-      </div>
+
+	<div class="title-header" style="margin-top: 20px; margin-bottom: 20px;">
+		<div></div>
+		<div class="search-container">
+			<form class="search-form" method="get" id="searchForm">
+				<select name="type">
+					<option value="uid"   ${type == 'uid' ? 'selected' : ''}>회원 ID</option>
+					<option value="uname" ${type == 'uname' ? 'selected' : ''}>회원명</option>
+					<option value="email" ${type == 'email' ? 'selected' : ''}>이메일</option>
+				</select>
+				<input type="text" name="keyword" placeholder="검색어를 입력하세요" value="${fn:escapeXml(param.keyword)}">
+				<button type="submit" class="btn-search">검색</button>
+			</form>
+		</div>
+	</div>
 
       <!-- 페이지네이션 -->
       <div class="pagination">
@@ -252,7 +311,6 @@
 		    </a>
 		</c:if>
       </div>
-    </div>
 	<script>
 	  document.getElementById("searchForm").addEventListener("submit", function(e) {
 	      e.preventDefault(); // 기존 submit 막기

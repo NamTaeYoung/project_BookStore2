@@ -55,13 +55,20 @@
         </div>
 
         <!-- 오른쪽: 이미지 미리보기 -->
-        <div class="book-edit-right">
-            <img id="addPreview" class="preview-img"
-                 src="https://via.placeholder.com/280x400?text=Book+Cover"
-                 alt="preview">
-        </div>
-
-    </div>
+		<div class="book-edit-right">
+		    <div class="preview-box">
+				<!-- 이미지 들어가는 큰 박스 -->				
+				<div class="preview-frame">
+		           <img id="addPreview" class="preview-img" alt="">
+		       </div>
+			   
+			   <!-- 안내 메시지 (아래 중앙으로 배치) -->
+		        <p class="preview-guide">
+		            이미지 URL을 입력하면 미리보기가 표시됩니다.<br>
+		            <span>권장 크기 : 280×400 (세로형 표지)</span>
+		        </p>
+		    </div>
+		</div>
 </div>
 
 
@@ -78,17 +85,24 @@
     display: flex;
     gap: 60px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+	justify-content: space-between;
 }
 
 .book-edit-left {
-    flex: 1;
+	flex-basis: 60%;
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
-
+/* 오른쪽 이미지 영역 (기존 width: 300px → 40% 비율로 확장) */
+.book-edit-right {
+    flex-basis: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
 .section-title {
-    font-size: 22px;
+	font-size: 22px;
     margin-bottom: 10px;
     font-weight: bold;
     color: #5a4633;
@@ -128,27 +142,56 @@
 }
 
 .book-edit-right {
-    width: 300px;
+    flex-basis: 40%;
     display: flex;
     justify-content: center;
+    align-items: center;
+	flex-direction: column;
 }
 
-.preview-img {
-    width: 260px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+.preview-box {
+    text-align: center;
 }
+
+/* 이미지 들어갈 틀(항상 보임) */
+.preview-frame {
+	width: 280px;      /* 책 표지 세로형 기준 */
+	height: 400px;
+	background: #f3f0ed;
+	border-radius: 12px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;      /* 프레임 밖으로 삐져나오지 않도록 */
+	margin-bottom: 15px;
+	box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+/* 실제 이미지 */
+.preview-img {
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;   /* <-- 원본 비율 유지하며 안에 맞춤 */
+	display: block;
+}
+
+/* 안내 문구 */
+.preview-guide {
+    font-size: 13px;
+    color: #7a6a58;
+    line-height: 1.5;
+    background: #f9f4ef;
+    padding: 10px 14px;
+    border-radius: 6px;
+    display: inline-block;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
 </style>
 
 
 <!-- JS (AJAX 등록 + 이미지 미리보기) -->
 <script>
-function previewAddImage() {
-    const url = document.querySelector("input[name='book_image_path']").value;
-    document.getElementById("addPreview").src = url || "https://via.placeholder.com/280x400?text=Book+Cover";
-}
-
 function saveBookAdd() {
 
     const form = document.getElementById("bookAddForm");
@@ -180,5 +223,10 @@ function saveBookAdd() {
         console.error(err);
         alert("등록 중 오류 발생");
     });
+}
+function previewAddImage() {
+	const url = document.querySelector("input[name='book_image_path']").value.trim();
+    const img = document.getElementById("addPreview");
+    img.src = url || "";
 }
 </script>

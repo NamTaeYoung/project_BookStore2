@@ -7,6 +7,73 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>관리자 페이지 — 뼈대</title>
   <link rel="stylesheet" href="/css/adminMain.css">
+  <style>
+	/* 제목 스타일 - 회원관리와 동일 */
+	.admin-title {
+	  font-size: 28px;
+	  font-weight: 800;
+	  color: #3e2c1c;
+	  margin: 0 0 10px 0;
+	}
+
+	.admin-sub {
+	  font-size: 14px;
+	  color: #7a6a58;
+	  margin-bottom: 30px;
+	}
+
+	/* 카드 그리드 */
+	.quick-menu-grid {
+	  display: grid;
+	  grid-template-columns: repeat(3, 1fr);  /* ← 3개씩 고정 */
+	  gap: 24px;
+	  margin-top: 20px;
+
+	  /* 가운데 정렬 */
+	  max-width: 1100px;
+	  margin-left: auto;
+	  margin-right: auto;
+	}
+
+	/* 카드 스타일 - 회원관리 table 느낌과 통일 */
+	.quick-card {
+	  background: #ffffff;
+	  border: 1px solid #e5dccc;
+	  border-radius: 16px;
+	  padding: 25px 20px;
+	  text-align: center;
+
+	  /* 회원관리 테이블과 통일된 그림자 */
+	  box-shadow: 0 6px 20px rgba(0,0,0,0.10);
+	  transition: 0.25s;
+	}
+
+	.quick-card:hover {
+	  transform: translateY(-4px);
+	  box-shadow: 0 12px 26px rgba(0,0,0,0.16);
+	  background: #faf8f4;
+	}
+
+	/* 아이콘 */
+	.quick-icon {
+	  font-size: 40px;
+	  margin-bottom: 14px;
+	}
+
+	/* 메뉴 제목 */
+	.quick-title {
+	  font-size: 18px;
+	  font-weight: 700;
+	  color: #3e2c1c;
+	  margin-bottom: 6px;
+	}
+
+	/* 메뉴 설명 */
+	.quick-desc {
+	  font-size: 13px;
+	  color: #7b6b5e;
+	}
+  </style>
 </head>
 <body>
   <div class="app">
@@ -121,8 +188,48 @@
       <!-- CONTENT -->
       <section class="content" id="content-area">
 
-        <h1 style="font-size:18px;margin:0 0 6px 0;">관리자 대시보드</h1>
-        <div style="color:var(--muted);font-size:13px;margin-bottom:18px;">기본 화면 구성 예시</div>
+		<h1 class="admin-title">관리자 대시보드</h1>
+		<p class="admin-sub">관리자가 자주 사용하는 기능을 빠르게 실행하세요.</p>
+
+		<div class="quick-menu-grid">
+
+		  <div class="quick-card" onclick="loadPage('/admin/member/adminlist')">
+		    <div class="quick-icon">👥</div>
+		    <div class="quick-title">회원 관리</div>
+		    <div class="quick-desc">회원 목록 조회 및 수정</div>
+		  </div>
+
+		  <div class="quick-card" onclick="loadPage('/admin/member/authority')">
+		    <div class="quick-icon">🔐</div>
+		    <div class="quick-title">권한 관리</div>
+		    <div class="quick-desc">관리자 / 일반회원 권한 설정</div>
+		  </div>
+
+		  <div class="quick-card" onclick="loadPage('/admin/noticeManagement')">
+		    <div class="quick-icon">📢</div>
+		    <div class="quick-title">공지사항 관리</div>
+		    <div class="quick-desc">공지 등록 및 수정</div>
+		  </div>
+
+		  <div class="quick-card" onclick="loadPage('/admin/book/list')">
+		    <div class="quick-icon">📚</div>
+		    <div class="quick-title">도서 관리</div>
+		    <div class="quick-desc">도서 등록, 수정, 삭제</div>
+		  </div>
+
+		  <div class="quick-card" onclick="loadPage('/admin/order/list')">
+		    <div class="quick-icon">🧾</div>
+		    <div class="quick-title">전체 주문내역</div>
+		    <div class="quick-desc">주문 현황 확인</div>
+		  </div>
+
+		  <div class="quick-card" onclick="loadPage('/inquiry/admin/list')">
+		    <div class="quick-icon">💬</div>
+		    <div class="quick-title">문의 내역</div>
+		    <div class="quick-desc">1:1 문의 확인 및 답변</div>
+		  </div>
+
+		</div>
 
       </section>
     </main>
@@ -130,6 +237,7 @@
   <script>
 	// 공통 페이지 로더
 	function loadPage(url) {
+		history.pushState({ path: url }, "", "#" + url);
 		fetch(url)
 	    .then(res => res.text())
 	    .then(html => {
@@ -394,7 +502,11 @@
 	    if (page) loadPage(page);
 	  });
 	});
-	
+	window.addEventListener("popstate", function (event) {
+	  if (event.state && event.state.path) {
+	    loadPage(event.state.path);
+	  }
+	});
   </script>
 </body>
 </html>

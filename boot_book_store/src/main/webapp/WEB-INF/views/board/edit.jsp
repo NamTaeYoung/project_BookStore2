@@ -10,115 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
   <style>
-    :root{
-      --brand: #2c5f8d;
-      --brand-dark: #1e4261;
-      --text: #1c1c1c;
-      --muted: #686868;
-      --bg: #ffffff;
-      --card: #f7f7f7;
-      --radius: 18px;
-      --shadow: 0 10px 30px rgba(0,0,0,.08);
-      --section-bg: #f8f9fa;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body {
-      margin: 0;
-      font-family: 'Noto Sans KR', sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.5;
-    }
-    /* 헤더 */
-    header{ position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px solid #eee; }
-    .nav{
-      max-width:1100px; margin:0 auto;
-      padding:14px 20px;
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-    }
-    .brand{
-      font-weight:800; letter-spacing:.08em;
-      color:var(--brand); text-decoration:none;
-      display:flex; align-items:center; gap:.6rem;
-    }
-    .brand::before{
-      content:""; width:22px; height:22px; border-radius:6px;
-      background: linear-gradient(135deg, var(--brand), var(--brand-dark));
-      box-shadow: 0 6px 14px rgba(44,95,141,.35) inset;
-      display:inline-block;
-    }
-    .nav-right{ display:flex; align-items:center; gap:18px; font-size:.95rem; }
-    .nav-right a{ color:#333; text-decoration:none; }
-    .nav-right a:hover{ color:var(--brand-dark) }
-    .nav-right .user-name{ color:#666; font-weight:700; }
 
-    /* 상단 프로모션 바 */
-    .promo{
-      background: var(--brand);
-      padding: 0;
-      position: relative;
-      z-index: 6;
-    }
-    .promo-content{
-      max-width: 1100px;
-      margin: 0 auto;
-      height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-    }
-    .promo-nav{
-      display: flex;
-      align-items: center;
-      gap: 80px;
-    }
-    .promo-nav a{
-      display: inline-flex;
-      align-items: center;
-      padding: 0;
-      border-radius: 0;
-      color: #fff;
-      text-decoration: none;
-      font-family: 'Noto Sans KR', sans-serif;
-      font-weight: 400;
-      font-size: clamp(18px, 2.2vw, 20px);
-      letter-spacing: .02em;
-      position: relative;
-      transition: color .2s ease;
-    }
-    .promo-nav a::after{
-      content: "";
-      position: absolute;
-      left: 0; right: 0; bottom: -10px;
-      height: 3px;
-      background: #fff;
-      border-radius: 3px;
-      transform: scaleX(0);
-      transform-origin: 50% 100%;
-      transition: transform .25s ease;
-      opacity: .95;
-    }
-    .promo-nav a:hover::after{ transform: scaleX(1); }
-    .promo-nav a + a::before{
-      content: "";
-      position: absolute;
-      left: -40px;
-      top: 50%;
-      width: 2px;
-      height: 26px;
-      background: rgba(255,255,255,.65);
-      transform: translateY(-50%);
-      border-radius: 2px;
-    }
-    @media (max-width: 720px){
-      .promo-nav{ gap: 48px; }
-      .promo-nav a{ font-weight: 700; font-size: 18px; }
-      .promo-nav a + a::before{ left: -24px; height: 20px; }
-    }
-    .promo-nav a:hover { background: rgba(255,255,255,0.1); }
 
     /* 글쓰기 섹션 */
     .write-section {
@@ -308,24 +202,42 @@
   </style>
 </head>
 <body>
-  <header>
-    <nav class="nav" aria-label="주요 메뉴">
-      <a href="/main" class="brand">대기질 정보</a>
-      <div class="nav-right">
-        <c:choose>
-          <c:when test="${empty sessionScope.loginDisplayName}">
-            <a href="<c:url value='/login'/>">로그인</a>
-            <a href="<c:url value='/register'/>">회원가입</a>
-          </c:when>
-          <c:otherwise>
-            <a href="<c:url value='/mypage'/>">마이페이지</a>
-            <a href="<c:url value='/logout'/>">로그아웃</a>
-            <span class="user-name">${sessionScope.loginDisplayName}님</span>
-          </c:otherwise>
-        </c:choose>
-      </div>
-    </nav>
-  </header>
+	<header>
+	  <nav class="nav">
+	    <a href="/main" class="brand">
+	      <img src="/img/book_logo.png" class="brand-logo">
+	    </a>
+
+	    <div class="nav-right">
+	      <c:choose>
+	        <c:when test="${empty sessionScope.loginDisplayName}">
+	          <a href="/login">로그인</a>
+	          <a href="/register">회원가입</a>
+	          <a href="/cart">장바구니</a>
+	        </c:when>
+	        <c:otherwise>
+	          <a href="/mypage">마이페이지</a>
+	          <a href="/cart">장바구니</a>
+	          <a href="/logout">로그아웃</a>
+	          <span style="color:#666; font-weight:700;">
+	            ${sessionScope.loginDisplayName}님
+	          </span>
+	        </c:otherwise>
+	      </c:choose>
+	    </div>
+	  </nav>
+	</header>
+	<!-- 상단 프로모션 -->
+	<div class="promo" role="note" aria-label="프로모션">
+		<div class="promo-content">
+			<div class="promo-nav">
+				<a href="<c:url value='/Search'/>" class="nav-search">도서</a> 
+				<a href="<c:url value='/board/list'/>" class="nav-board">게시판</a>
+				<a href="<c:url value='/notice/list'/>" class="nav-notice">공지사항</a>
+
+			</div>
+		</div>
+	</div>
 
   <!-- 글쓰기 섹션 -->
   <section class="write-section">

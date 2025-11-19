@@ -53,15 +53,11 @@
           </thead>
           <tbody>
 			<c:forEach var="detail" items="${orderDetails}">
-			  <tr>
+			  <tr style="cursor:pointer;" data-href="<c:url value='/SearchDetail'/>?book_id=${detail.book_id}">
 			    <td>
 			      <img src="${detail.book_image_url}" alt="${detail.book_title}" class="thumb" />
 			    </td>
-			    <td>
-			      <a href="<c:url value='/SearchDetail'/>?book_id=${detail.book_id}">
-			        ${detail.book_title}
-			      </a>
-			    </td>
+			    <td>${detail.book_title}</td>
 			    <td>${detail.quantity}</td>
 			    <td>₩<fmt:formatNumber value="${detail.purchase_price}" type="currency" currencySymbol=""/></td>
 			  </tr>
@@ -90,5 +86,14 @@
       © 책갈피 BRAND · 부산시 부산진구 범내골 · 00-0000-0000 · <a href="mailto:qshop@naver.com">qshop@naver.com</a>
     </div>
   </footer>
+  <script>
+	document.addEventListener('DOMContentLoaded', () => {
+	  document.querySelectorAll('tr[data-href]').forEach(row => {
+	    row.addEventListener('click', () => {
+	      window.location.href = row.getAttribute('data-href');
+	    });
+	  });
+	});
+  </script>
 </body>
 </html>

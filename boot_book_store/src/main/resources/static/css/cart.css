@@ -91,7 +91,15 @@ header{ position:sticky; top:0; z-index:50; background:#fff; border-bottom:1px s
 .btn{ display:inline-flex; align-items:center; justify-content:center; height:44px; padding:0 16px; border-radius:12px; font-weight:700; text-decoration:none; cursor:pointer; border:none; }
 .btn-brand{ background:var(--brand); color:#fff; box-shadow:0 6px 16px rgba(139,79,47,.22); }
 .btn-brand:hover{ background:var(--brand-dark); }
-.btn-ghost{ background:#fff; border:1px solid #e6e6e6; color:#333; }
+.btn-ghost {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  color: #333;
+  white-space: nowrap;   /* 텍스트 줄바꿈 방지 */
+  min-width: 90px;       /* 최소너비 지정 */
+  padding: 0 12px;       /* 좌우 패딩 적절 조절 */
+}
+
 .btn-ghost:hover{ border-color:#d3d3d3; }
 .fine{ font-size:12px; color:var(--muted); }
 

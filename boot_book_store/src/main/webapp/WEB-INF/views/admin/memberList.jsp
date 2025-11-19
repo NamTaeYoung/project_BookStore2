@@ -165,8 +165,10 @@
                             <td>${m.REG_DATE}</td>
                             <td>
                                 <div class="action-buttons">
-                                    <button class="btn-edit"
-                                            onclick="loadPage('/admin/member/detail?user_id=${m.USER_ID}')">수정</button>
+									<c:if test="${m.USER_ROLE != 'INACTIVE'}">
+									    <button class="btn-edit"
+									            onclick="loadPage('/admin/member/detail?user_id=${m.USER_ID}')">수정</button>
+									</c:if>
                                     <button class="btn-delete"
                                             onclick="if(confirm('정말 삭제하시겠습니까?')) loadPage('/admin/member/delete?user_id=${m.USER_ID}')">삭제</button>
                                 </div>

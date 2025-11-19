@@ -1,25 +1,17 @@
 package com.boot.controller;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,10 +20,10 @@ import org.springframework.web.client.RestTemplate;
 
 import com.boot.dao.BookDAO;
 import com.boot.dao.CartDAO;
-import com.boot.dao.OrderDetailDAO;
-import com.boot.dto.CartDTO;
-import com.boot.dto.OrderDTO;
 import com.boot.dao.OrderDAO;
+import com.boot.dao.OrderDetailDAO;
+import com.boot.dto.BookDTO;
+import com.boot.dto.OrderDTO;
 import com.boot.dto.OrderDetailDTO;
 import com.boot.dto.UserDTO;
 import com.boot.service.BookService;

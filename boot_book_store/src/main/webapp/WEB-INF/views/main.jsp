@@ -1,5 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!doctype html>
 <html lang="ko">
 <head>
@@ -110,136 +113,26 @@
 				</div>
 		</section>
 
-		<!-- 이달의 책 / 개인화 추천 섹션 제목 분기 -->
+		<!-- ========== 추천 도서 섹션 시작 ========== -->
 		<section class="products-section">
-			<div class="products-container">
-				<c:choose>
-					<c:when test="${empty sessionScope.loginId}">
-						<h2 class="section-title">이달의 책 😊</h2>
-					</c:when>
-					<c:otherwise>
-						<h2 class="section-title">${sessionScope.loginDisplayName}님을 위한 추천 📚</h2>
-					</c:otherwise>
-				</c:choose>
-
-				<!-- 기존 카드 그대로 사용(나중에 서버데이터 바인딩하면 됨) -->
-				<div class="products-grid" id="productsGrid">
-					<div class="product-card">
-						<div class="product-image"></div>
-						<div class="product-info">
-							<h3 class="product-title">책장 정리왕</h3>
-							<div class="product-price">4,000원</div>
-							<div class="product-rating">
-								<div class="stars">
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-								</div>
-								<span class="rating-text">0 (0)</span>
-							</div>
-						</div>
-					</div>
-
-					<div class="product-card">
-						<div class="product-image"></div>
-						<div class="product-info">
-							<h3 class="product-title">리딩 트래커</h3>
-							<div class="product-price">3,000원</div>
-							<div class="product-rating">
-								<div class="stars">
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-								</div>
-								<span class="rating-text">0 (0)</span>
-							</div>
-						</div>
-					</div>
-
-					<div class="product-card">
-						<div class="product-image"></div>
-						<div class="product-info">
-							<h3 class="product-title">도서관 매니저</h3>
-							<div class="product-price">2,000원</div>
-							<div class="product-rating">
-								<div class="stars">
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-								</div>
-								<span class="rating-text">0 (0)</span>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<!-- 숨김 추가 카드(그대로) -->
-				<div class="products-grid hidden" id="additionalProducts"
-					style="margin-top: 40px;">
-					<div class="product-card">
-						<div class="product-image"></div>
-						<div class="product-info">
-							<h3 class="product-title">스마트 도서 추천</h3>
-							<div class="product-price">5,000원</div>
-							<div class="product-rating">
-								<div class="stars">
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-								</div>
-								<span class="rating-text">0 (0)</span>
-							</div>
-						</div>
-					</div>
-
-					<div class="product-card">
-						<div class="product-image"></div>
-						<div class="product-info">
-							<h3 class="product-title">독서 통계 분석</h3>
-							<div class="product-price">3,500원</div>
-							<div class="product-rating">
-								<div class="stars">
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-								</div>
-								<span class="rating-text">0 (0)</span>
-							</div>
-						</div>
-					</div>
-
-					<div class="product-card">
-						<div class="product-image"></div>
-						<div class="product-info">
-							<h3 class="product-title">도서 대출 관리</h3>
-							<div class="product-price">2,500원</div>
-							<div class="product-rating">
-								<div class="stars">
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-									<div class="star"></div>
-								</div>
-								<span class="rating-text">0 (0)</span>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<button class="load-more-btn" id="loadMoreBtn">더보기</button>
-			</div>
+		  <div class="products-container">
+		    <h2 class="section-title">
+		      <c:choose>
+		        <c:when test="${empty sessionScope.loginId}">
+		          이달의 책 📚
+		        </c:when>
+		        <c:otherwise>
+		          ${sessionScope.loginDisplayName}님을 위한 추천 📚
+		        </c:otherwise>
+		      </c:choose>
+		    </h2>
+		  
+		    <!-- 책 카드 렌더링 위치 -->
+		    <div class="grid" id="productsGrid"></div>
+		  </div>
 		</section>
+
+
 
 		<!-- 책 속 한 줄 -->
 		<section class="quotes-section">
@@ -452,6 +345,24 @@
 	      alert("회원 탈퇴가 완료되었습니다.");
 	    }
 	  });
+	</script>
+	
+	<script>
+	  const loginId = "${sessionScope.loginId != null ? sessionScope.loginId : ''}";
+	  const ctx = "${pageContext.request.contextPath}";
+	</script>
+	<script>
+	  const recommendedBooks = [
+	      <c:forEach var="book" items="${recommendList}" varStatus="status">
+	      {
+	        id: ${book.book_id},
+	        title: "${fn:escapeXml(book.book_title)}",
+	        author: "${fn:escapeXml(book.book_writer)}",
+	        price: ${book.book_price},
+	        image: "${fn:escapeXml(book.book_image_path)}"
+	      }<c:if test="${!status.last}">,</c:if>
+	      </c:forEach>
+	  ];
 	</script>
 </body>
 </html>

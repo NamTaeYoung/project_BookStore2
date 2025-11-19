@@ -164,7 +164,7 @@
   </div>
 
   <!-- 리뷰 작성 -->
-  <div class="book-details-section">
+  <div class="review-write-section">
     <c:choose>
       <c:when test="${not empty sessionScope.loginId && hasPurchased}">
         <c:choose>
@@ -285,36 +285,7 @@
       if (reviewMessage) reviewMessage.style.display = 'none'; // 제한 메시지 숨기기
     }
   });
-  const CART_URL = '<c:url value="/cartAdd"/>';
-  const BUY_URL  = '<c:url value="/order/buy"/>'; // 필요 시
 
-  // CSRF (사용 중일 때만 존재)
-  const csrfToken  = document.querySelector('meta[name="_csrf"]')?.content;
-  const csrfHeader = document.querySelector('meta[name="_csrf_header"]')?.content;
-  const BOOK_ID = ${book.book_id};
-  
-  document.getElementById('btnAddToCart').addEventListener('click', async () => {
-      try {
-        const headers = { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' };
-        if (csrfToken && csrfHeader) headers[csrfHeader] = csrfToken;
-
-        const res  = await fetch(CART_URL, {
-          method: 'POST',
-          headers,
-          body: 'book_id=' + encodeURIComponent(BOOK_ID)
-        });
-        const text = (await res.text()).trim();
-
-        if (text === 'success') {
-          alert('장바구니 담기 완료!');
-        } else {
-          alert(text || '장바구니 담기 실패');
-        }
-      } catch (e) {
-        console.error(e);
-        alert('네트워크 오류로 실패했습니다.');
-      }
-    });
   // 구매하기 버튼 이벤트
   const btnBuyNow = document.getElementById('btnBuyNow');
   if (btnBuyNow) {

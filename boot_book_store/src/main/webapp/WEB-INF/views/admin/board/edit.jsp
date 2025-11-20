@@ -241,7 +241,7 @@
     <section class="write-section">
       <div class="write-container">
         <div class="write-header">
-          <h1 class="write-title">공지사항 수정</h1>
+          <h1 class="write-title">게시글 수정</h1>
         </div>
 
         <form id="writeForm" class="write-form" method="post" action="/admin/board/edit.do" enctype="multipart/form-data">
@@ -486,3 +486,4 @@
 	</script>
   </body>
   </html>
+

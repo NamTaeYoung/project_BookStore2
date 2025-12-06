@@ -8,7 +8,7 @@
 <img src="https://img.shields.io/badge/Java-17-007396?logo=java">
 <img src="https://img.shields.io/badge/SpringBoot-2.7-6DB33F?logo=springboot">
 <img src="https://img.shields.io/badge/MyBatis-000000">
-<img src="https://img.shields.io/badge/MySQL-4479A1?logo=mysql">
+<img src="https://img.shields.io/badge/Oracle-F80000?logo=oracle">
 <img src="https://img.shields.io/badge/JSP-F7DF1E?logo=html5">
 <img src="https://img.shields.io/badge/AWS EC2-232F3E?logo=amazonaws">
 <img src="https://img.shields.io/badge/Toss Payments-0055FF">

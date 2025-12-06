@@ -15,7 +15,6 @@
 <img src="https://img.shields.io/badge/Lombok-FF0000?logo=lombok&logoColor=white">
 <img src="https://img.shields.io/badge/Gradle-02303A?logo=gradle&logoColor=white">
 
-<img src="https://img.shields.io/badge/AWS EC2-232F3E?logo=amazonaws">
 <img src="https://img.shields.io/badge/Toss Payments-0055FF">
 <img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white">
 

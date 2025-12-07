@@ -338,5 +338,5 @@ OAuth2 인증 코드 요청 → 토큰 발급 → 사용자 정보 조회
 - 재고 관리  
 <img src="/docs/demo/admin.gif" width="600"/>
 -->
----
+
 

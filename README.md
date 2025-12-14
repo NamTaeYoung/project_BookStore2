@@ -168,7 +168,8 @@ Spring Security 없이 세션 기반 인증 구현
 
 (여기에 이미지 삽입)
 
-</details> <details> <summary><strong>소셜 로그인(Kakao / Naver / Google)</strong></summary>
+</details>
+<details> <summary><strong>소셜 로그인(Kakao / Naver / Google)</strong></summary>
 📌 설명
 
 OAuth2 인증 코드 요청 → 토큰 발급 → 사용자 정보 조회
@@ -181,7 +182,8 @@ OAuth2 인증 코드 요청 → 토큰 발급 → 사용자 정보 조회
 
 (이미지)
 
-</details> <details> <summary><strong>아이디·비밀번호 찾기</strong></summary>
+</details>
+<details> <summary><strong>아이디·비밀번호 찾기</strong></summary>
 📌 설명
 
 이메일 인증번호 발송
@@ -193,7 +195,8 @@ OAuth2 인증 코드 요청 → 토큰 발급 → 사용자 정보 조회
 (이미지)
 
 🛠 관리자 기능
-<details> <details><summary><strong>사용자 게시판 관리</strong></summary>
+</details>
+<details> <summary><strong>사용자 게시판 관리</strong></summary>
 📌 설명
 
 사용자 게시글 모니터링 및 삭제
@@ -204,7 +207,8 @@ OAuth2 인증 코드 요청 → 토큰 발급 → 사용자 정보 조회
 
 (이미지)
 
-</details> <details> <summary><strong>주문 관리(주문 리스트 / 주문 상세)</strong></summary>
+</details> 
+<details> <summary><strong>주문 관리(주문 리스트 / 주문 상세)</strong></summary>
 📌 설명
 
 주문 테이블 + 상세 테이블 조인 조회
@@ -215,7 +219,8 @@ OAuth2 인증 코드 요청 → 토큰 발급 → 사용자 정보 조회
 
 (이미지)
 
-</details> <details> <summary><strong>탈퇴 회원 관리</strong></summary>
+</details> 
+<details> <summary><strong>탈퇴 회원 관리</strong></summary>
 📌 설명
 
 관리자 페이지에서 탈퇴 회원 조회
@@ -241,7 +246,7 @@ OAuth2 인증 코드 요청 → 토큰 발급 → 사용자 정보 조회
 
 </details>
 회원 탈퇴
-</details> <details> <summary><strong>탈퇴 회원 관리</strong></summary>
+<details> <summary><strong>탈퇴 회원 관리</strong></summary>
 📌 설명
 
 관리자 페이지에서 탈퇴 회원 조회

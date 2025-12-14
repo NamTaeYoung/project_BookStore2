@@ -156,8 +156,6 @@
 <details> <summary><strong>회원가입 / 로그인 / 로그아웃</strong></summary>
   
 
-https://github.com/user-attachments/assets/302f788d-3747-4a18-b1d7-b2f4c0c862ab
-
 
 📌 설명
 
@@ -195,7 +193,7 @@ OAuth2 인증 코드 요청 → 토큰 발급 → 사용자 정보 조회
 (이미지)
 
 🛠 관리자 기능
-<details> <summary><strong>사용자 게시판 관리</strong></summary>
+<details> <details><summary><strong>사용자 게시판 관리</strong></summary>
 📌 설명
 
 사용자 게시글 모니터링 및 삭제

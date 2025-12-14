@@ -205,6 +205,18 @@ https://github.com/user-attachments/assets/e98efafb-b8cc-49c4-bc56-79365feb042a
 비밀번호 재설정 로직 구현
 
 </details>
+<details> <summary><strong>회원 탙퇴</strong></summary>
+
+https://github.com/user-attachments/assets/8588c329-457a-462a-844b-e5f167ce2aa3
+
+📌 설명
+
+Spring Security 없이 세션 기반 인증 구현
+
+로그인/로그아웃 전체 흐름 설계
+
+유효성 검사 + 예외 처리 적용
+</details>
 🛠 관리자 기능
 <details> <summary><strong>사용자 게시판 관리</strong></summary>
   
@@ -231,19 +243,6 @@ https://github.com/user-attachments/assets/a37c05bc-4e4a-4d2c-bfe0-f0faaf64d34b
 배송 상태 관리 등 확장 가능 구조 설계
 </details> 
 
-💬 회원 탈퇴
-<details> <summary><strong>탈퇴 회원 관리</strong></summary>
-  
-
-https://github.com/user-attachments/assets/8588c329-457a-462a-844b-e5f167ce2aa3
-
-
-📌 설명
-
-관리자 페이지에서 탈퇴 회원 조회
-
-계정 상태값 기반 필터링 처리
-</details>
 ---
 
 ## 📬 프로젝트 구조

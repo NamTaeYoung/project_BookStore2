@@ -248,18 +248,22 @@ https://github.com/user-attachments/assets/a37c05bc-4e4a-4d2c-bfe0-f0faaf64d34b
 ## 📬 프로젝트 구조
 
 ```plaintext
-📦 boot_bookstore
-├─ src/main/java/com.bookstore
-│  ├─ controller
-│  ├─ service
-│  ├─ dao
-│  ├─ dto
-│  └─ config
+📦 boot_bookstore_store
+├─ src/main/java
+│  ├─ com.boot.config
+│  ├─ com.boot.controller
+│  ├─ com.boot.dao
+│  ├─ com.boot.dto
+│  └─ com.boot.mapper
+│  ├─ com.boot.service
+│
 ├─ src/main/resources
-│  ├─ mapper
+│  ├─ mybatis.mappers
 │  ├─ static
-│  └─ templates(JSP)
-└─ docs
+│  ├─ application.properties
+│  └─ mybatis-config.xml
+│ 
+└─ src
    ├─ menu-structure.pdf
    ├─ ui-design.pdf
    ├─ erd.pdf

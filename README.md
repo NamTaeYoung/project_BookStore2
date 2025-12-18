@@ -130,7 +130,7 @@
 
 ## 🖥 화면 설계서 (PDF)
 
-📄 화면 기획서 보기  
+📄 화면 설계서 보기  
 👉 [online-bookstore-ui-design.pdf](https://github.com/user-attachments/files/24016616/online-bookstore-ui-design.pdf)
 
 ---

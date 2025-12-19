@@ -171,7 +171,7 @@
 
 ---
 
-## 🔍 핵심 구현 내용 (내가 담당한 기능)
+## 🔍 담당 기능
 
 🔐 회원 / 인증 기능
 <details> <summary><strong>회원가입</strong></summary>
